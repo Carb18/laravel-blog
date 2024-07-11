@@ -6,5 +6,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return "Testing admin route";
-});
+    return view('admin.dashboard');
+})->name('admin.dashboard');
