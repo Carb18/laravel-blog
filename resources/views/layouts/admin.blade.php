@@ -9,12 +9,14 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
 
     <!-- Uso de Font Awesome para los icons -->
     <script src="https://kit.fontawesome.com/0138e4a498.js" crossorigin="anonymous"></script>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Integrando el SweetAlert2 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Styles -->
     @livewireStyles
@@ -22,8 +24,6 @@
 <body class="font-sans antialiased sm:overflow-auto"
       :class="{ 'overflow-hidden': open}"
       x-data="{open:false}">
-
-
 
 
 @include('layouts.includes.admin.nav')
@@ -45,5 +45,13 @@
 @stack('modals')
 
 @livewireScripts
+
+@if(session('swal'))
+    <script>
+        Swal.fire(@json(session('swal')));
+    </script>
+@endif
+
+
 </body>
 </html>
