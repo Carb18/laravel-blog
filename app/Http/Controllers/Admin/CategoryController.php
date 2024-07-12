@@ -13,7 +13,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-       return view('admin.categories.index');
+        // Almacenar registros de la bd respecto a categorias
+
+        $categories = Category::paginate();
+       return view('admin.categories.index', compact('categories'));
     }
 
     /**
