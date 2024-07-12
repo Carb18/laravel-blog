@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     use HasFactory;
+
+    // Relacion muchos a muchos polimorfica
+    public function posts(){
+        return $this->morphedByMany(Post::class,'taggable');
+    }
 }

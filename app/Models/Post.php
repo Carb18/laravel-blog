@@ -8,4 +8,29 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+
+    // Relacion uno a uno inversa
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    // Relación uno a muchos inversa
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // Relacion uno a muchos polimorfica
+    public function comments(){
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    // Relacion muchos a muchos polimorfica para tags
+    public function tags(){
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+
+
 }
