@@ -6,6 +6,13 @@
            'active' => request()->routeIs('admin.dashboard'),
            'icon' => 'fa-solid fa-gauge',
         ],
+
+        [
+           'name' => 'Categorias',
+           'url' => route('admin.categories.index'),
+           'active' => request()->routeIs('admin.categories.*'),
+           'icon' => 'fa-solid fa-inbox',
+        ],
     ];
 
 
