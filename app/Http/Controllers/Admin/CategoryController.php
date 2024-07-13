@@ -14,8 +14,9 @@ class CategoryController extends Controller
     public function index()
     {
         // Almacenar registros de la bd respecto a categorias
-
-        $categories = Category::paginate();
+        // Se puede ordenar de manera ascendente o descendente
+        $categories = Category::latest('id')
+        ->paginate();
        return view('admin.categories.index', compact('categories'));
     }
 
@@ -32,7 +33,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        // Uso de validaciones para los campos a registrar en la BD
+        $request->validate([
+           'name' => 'required|string|max:255',
+        ]);
 
+        Category::create($request->all());
+
+        // Variable flash para mostrar alerta cuando de se crea una categoría
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Correcto',
+            'text' => 'Categoría creada correctamente',
+        ]);
+        return redirect()->route('admin.categories.index');
     }
 
     /**
