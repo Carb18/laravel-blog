@@ -52,17 +52,19 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
-    {
-        return view('admin.categories.show');
-    }
+
+    // METODO SHOW NO SERA NECESARIO POR EL MOMENTO
+//    public function show(Category $category)
+//    {
+//        return view('admin.categories.show');
+//    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Category $category)
     {
-        return view('admin.categories.edit');
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -70,7 +72,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $category->update($request->all());
+
+        // Variable flash para mostrar alerta cuando se actualiza categoria
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Correcto',
+            'text' => 'Categoría actualizada correctamente',
+        ]);
+        return redirect()->route('admin.categories.edit', $category);
     }
 
     /**
