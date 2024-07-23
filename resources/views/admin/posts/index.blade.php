@@ -2,14 +2,18 @@
 
     <ul class="space-y-8">
         @foreach($posts as $post)
-            <li class="grid grid-cols-2 gap-4">
+            <li class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div>
-                    <img class="aspect-[16/9] object-cover object-center" src="{{$post->image_path}}" alt="">
+                   <a href="{{route('admin.posts.edit', $post)}}">
+                       <img class="aspect-[16/9] object-cover object-center w-full" src="{{$post->image_path}}" alt="">
+                   </a>
                 </div>
 
                 <div>
                     <h1 class="text-xl font-semibold">
-                        {{$post->title}}
+                        <a href="{{route('admin.posts.edit', $post)}}">
+                            {{$post->title}}
+                        </a>
                     </h1>
                     <hr class="mt-1 mb-2">
 
@@ -21,7 +25,7 @@
                     </span>
 
                     <p class="text-gray-500">
-                        {{ $post->excerpt }}
+                        {{ Str::limit($post->excerpt, 100)}}
                     </p>
 
                     <div class="flex justify-end mt-4">
