@@ -20,6 +20,10 @@
 
     <!-- Styles -->
     @livewireStyles
+
+    <!-- Stack para agregar código css-->
+    @stack('css')
+
 </head>
 <body class="font-sans antialiased sm:overflow-auto"
       :class="{ 'overflow-hidden': open}"
@@ -52,6 +56,8 @@
     </script>
 @endif
 
+<!-- Stack para agregar código javascript-->
+@stack('js')
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 <x-admin-layout>
     <!-- APARTADO PARA EL CRUD, EDITAR  CATEGORIA -->
-    <form action="{{route('admin.categories.update', $category)}}" method="POST"
+    <form action="{{route('admin.categories.update', $category)}}"
+          method="POST"
           class="bg-white rounde-l p-6 shadow-lg">
         @csrf
         @method('PUT')
@@ -19,12 +20,38 @@
                 value="{{ $category->name }}"/>
         </div>
 
+
+
         <div class="flex justify-end">
-            <x-button class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+            <x-danger-button class="mr-2" onclick="deleteCategory()">
+                ELIMINAR CATEGORIA
+            </x-danger-button>
+
+            <x-button class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">
                 Actualizar categoría
             </x-button>
         </div>
 
     </form>
+
+    <form action="{{route('admin.categories.destroy', $category)}}"
+          id="formDelete"
+          method="POST">
+
+        @csrf
+        @method('DELETE')
+
+
+    </form>
+
+    @push('js')
+        <script >
+            function deleteCategory(){
+              let form = document.getElementById('formDelete');
+              form.submit();
+            }
+        </script>
+    @endpush
+
 
 </x-admin-layout>
