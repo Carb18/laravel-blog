@@ -9,6 +9,15 @@ class Post extends Model
 {
     use HasFactory;
 
+    // Asignacion masiva
+
+    protected $fillable = [
+        'title',
+        'slug',
+        'category_id',
+        'user_id'
+    ];
+
     // Relacion uno a uno inversa
     public function category()
     {
