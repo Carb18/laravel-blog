@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Observers\PostObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,6 +23,24 @@ class Post extends Model
         'category_id',
         'user_id'
     ];
+
+    protected function title(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucfirst($value),
+        );
+    }
+
+    // Agregando campos que no existen
+
+    protected function image(): Attribute {
+        return new Attribute(
+            get: fn () => $this->image_path ?? 'https://static.thenounproject.com/png/1211233-200.png',
+        );
+
+
+    }
 
     // Relacion uno a uno inversa
     public function category()
