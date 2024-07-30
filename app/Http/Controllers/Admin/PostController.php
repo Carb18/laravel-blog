@@ -40,12 +40,7 @@ class PostController extends Controller
             'slug' => 'required|unique:posts',
             'category_id' => 'required|exists:categories,id',
         ]);
-        $post = Post::create([
-            'title' => $request->title,
-            'slug' => $request->slug,
-            'category_id' => $request->category_id,
-            'user_id' => Auth::id(),
-        ]);
+        $post = Post::create($request->all());
 
         session()->flash('swal', [
             'icon' => 'success',
