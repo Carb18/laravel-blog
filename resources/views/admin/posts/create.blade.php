@@ -4,7 +4,10 @@
         Nuevo Post
     </h1>
 
-    <form action="{{route('admin.posts.store')}}" method="POST">
+    <form action="{{route('admin.posts.store')}}"
+          method="POST"
+          x-data="data()"
+          x-init="$watch('title', value => { string_to_slug(value) })">
         @csrf
 
         <x-validation-errors class="mb-4"/>
@@ -16,6 +19,7 @@
 
             <x-input name="title"
                      value="{{old('title')}}"
+                     x-model="title"
                      class="w-full"
                      placeholder="Ingrese nombre del post"/>
 
@@ -25,6 +29,7 @@
 
             <x-input name="slug"
                      value="{{old('slug')}}"
+                     x-model="slug"
                      class="w-full"
                      placeholder="Ingrese el slug del post"/>
         </div>
@@ -51,4 +56,27 @@
         </div>
     </form>
 
+    @push('js')
+    <script>
+        function data(){
+            return {
+                title:'',
+                slug:'',
+                string_to_slug(str){
+                    str = str.replace(/^\s+|\s+$/g, '');
+                    str = str.toLowerCase();
+                    var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+                    var to = "aaaaeeeeiiiioooouuuunc------";
+                    for (var i = 0, l = from.length; i < l; i++) {
+                        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+                    }
+                    str = str.replace(/[^a-z0-9 -]/g, '')
+                        .replace(/\s+/g, '-')
+                        .replace(/-+/g, '-');
+                    this.slug = str;
+                }
+            }
+        }
+    </script>
+    @endpush
 </x-admin-layout>
