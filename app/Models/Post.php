@@ -21,6 +21,8 @@ class Post extends Model
         'title',
         'slug',
         'category_id',
+        'excerpt',
+        'body',
         'user_id'
     ];
 
