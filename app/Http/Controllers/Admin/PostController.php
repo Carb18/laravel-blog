@@ -76,8 +76,8 @@ class PostController extends Controller
             'title' => 'required',
             'slug' => 'required|unique:posts,slug,' . $post->id,
             'category_id' => 'required|exists:categories,id',
-            'excerpt' => 'nullable',
-            'body' => 'nullable',
+            'excerpt' => $request->published ? 'required ': 'nullable',
+            'body' => $request->published ? 'required ': 'nullable',
             'published' => 'required|boolean',
         ]);
 
@@ -98,6 +98,13 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Correcto',
+            'text' => 'El post se ha eliminado correctamente.',
+        ]);
+        return redirect()->route('admin.posts.index');
     }
 }
