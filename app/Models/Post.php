@@ -23,7 +23,8 @@ class Post extends Model
         'category_id',
         'excerpt',
         'body',
-        'user_id'
+        'user_id',
+        'published'
     ];
 
     protected function title(): Attribute
